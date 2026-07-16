@@ -193,6 +193,7 @@ spec:
 {%       endif %}
 {%     endfor %}
 {%   endif %}
+{%   if (applications | selectattr('name','equalto','prometheus') | list | count > 0) %}
         livenessProbe:
           exec:
             command:
@@ -211,6 +212,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 30
           timeoutSeconds: 10
+{%   endif %}
 {% endif %}
       serviceAccountName: {{ service_account_name }}
       automountServiceAccountToken: false
